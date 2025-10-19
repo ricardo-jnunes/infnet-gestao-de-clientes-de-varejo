@@ -13,3 +13,16 @@ Permite realizar o gerenciamento de clientes de lojas de varejo através de APIs
 Acesse o http://localhost:8080/swagger-ui/index.html
 
 E execute as collections desejadas.
+
+#### Features implementadas
+
+* Feature 1 
+   - Organização do pacote
+   - Criação da classe de domínio
+   - Classe de serviço
+   - Interfaces
+   - Data Loader - Leitura de arquivo
+   - Injeção de dependência
+   - Criação de endpoints (Rest Controller)
+
+- Feature 2
