@@ -6,10 +6,12 @@ public interface CRUDService<T, ID> {
 
 	T register(T entity);
 
+	T getById(ID id);
+
 	List<T> getCustomers();
 
 	T edit(ID id, T entity);
-	
-	void delete (ID id);
+
+	void delete(ID id);
 
 }

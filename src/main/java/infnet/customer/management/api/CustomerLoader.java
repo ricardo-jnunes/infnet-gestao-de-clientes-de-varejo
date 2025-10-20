@@ -8,6 +8,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import infnet.customer.management.api.model.domain.Address;
 import infnet.customer.management.api.model.domain.Customer;
 import infnet.customer.management.api.model.domain.service.CustomerService;
 
@@ -34,7 +35,17 @@ public class CustomerLoader implements ApplicationRunner {
 				customer.setDocument(fields[2]);
 				customer.setEmail(fields[3]);
 				customer.setPhone(fields[4]);
-				customer.setType(Customer.Type.valueOf(fields[5].trim()));
+				customer.setType(Customer.Type.valueOf(fields[5]));
+				customer.setActive(Boolean.valueOf(fields[6]));
+
+				Address address = new Address();
+				address.setCep(fields[7]);
+				address.setNeighborhood("Centro");
+				address.setStreet("Rua Exemplo");
+				address.setNumber(123);
+				address.setState("Rio de Janeiro");
+				address.setCountry("Brasil");
+				customer.setAddress(address);
 
 				customerService.register(customer);
 				line = reader.readLine();

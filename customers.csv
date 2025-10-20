@@ -1,10 +1,10 @@
-1;João Silva;123.456.789-00;joao.silva@email.com;(11) 91234-5678;CPF
-2;Maria Oliveira;987.654.321-00;maria.oliveira@email.com;(21) 99876-5432;CPF
-3;Empresa Alpha Ltda;12.345.678/0001-90;contato@alpha.com;(11) 4002-8922;CNPJ
-4;Carlos Souza;321.654.987-10;carlos.souza@email.com;(31) 98877-6655;CPF
-5;Beta Tech SA;98.765.432/0001-12;suporte@betatech.com;(41) 3003-1234;CNPJ
-6;Ana Costa;111.222.333-44;ana.costa@email.com;(51) 97766-5544;CPF
-7;Gamma Comércio ME;55.666.777/0001-55;vendas@gammacomercio.com;(61) 3555-6677;CNPJ
-8;Pedro Lima;999.888.777-66;pedro.lima@email.com;(71) 98888-9999;CPF
-9;Delta Serviços LTDA;22.333.444/0001-22;financeiro@deltaservicos.com;(81) 3777-8899;CNPJ
-10;Lucas Andrade;444.555.666-77;lucas.andrade@email.com;(91) 96655-4433;CPF
+1;João Silva;123.456.789-00;joao.silva@email.com;(11) 91234-5678;CPF;true;20010020
+2;Maria Oliveira;987.654.321-00;maria.oliveira@email.com;(21) 99876-5432;CPF;true;20010020
+3;Empresa Alpha Ltda;12.345.678/0001-90;contato@alpha.com;(11) 4002-8922;CNPJ;true;20010020
+4;Carlos Souza;321.654.987-10;carlos.souza@email.com;(31) 98877-6655;CPF;true;20010020
+5;Beta Tech SA;98.765.432/0001-12;suporte@betatech.com;(41) 3003-1234;CNPJ;true;20010020
+6;Ana Costa;111.222.333-44;ana.costa@email.com;(51) 97766-5544;CPF;true;20010020
+7;Gamma Comércio ME;55.666.777/0001-55;vendas@gammacomercio.com;(61) 3555-6677;CNPJ;true;20010020
+8;Pedro Lima;999.888.777-66;pedro.lima@email.com;(71) 98888-9999;CPF;true;20010020
+9;Delta Serviços LTDA;22.333.444/0001-22;financeiro@deltaservicos.com;(81) 3777-8899;CNPJ;true;20010020
+10;Lucas Andrade;444.555.666-77;lucas.andrade@email.com;(91) 96655-4433;CPF;true;20010020

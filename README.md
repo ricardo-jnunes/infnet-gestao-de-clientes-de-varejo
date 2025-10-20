@@ -26,3 +26,8 @@ E execute as collections desejadas.
    - Criação de endpoints (Rest Controller)
 
 - Feature 2
+   - Classes abstratas e herança
+   - Incrementar atributos das classes de domínios
+   - Implementar relacionamentos (OneToMany, ManyToMany, ManyToOne, OneToOne)
+   - Tratamento de Exceções
+   - Criação de todos os endpoints CRUD e inativar cliente
