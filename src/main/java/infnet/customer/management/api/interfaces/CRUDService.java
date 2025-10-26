@@ -8,7 +8,7 @@ public interface CRUDService<T, ID> {
 
 	T getById(ID id);
 
-	List<T> getCustomers();
+	List<T> getList();
 
 	T edit(ID id, T entity);
 

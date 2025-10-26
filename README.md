@@ -30,4 +30,6 @@ E execute as collections desejadas.
    - Incrementar atributos das classes de domínios
    - Implementar relacionamentos (OneToMany, ManyToMany, ManyToOne, OneToOne)
    - Tratamento de Exceções
+   	- Exceções customizadas
    - Criação de todos os endpoints CRUD e inativar cliente
+   - CRUD para os vendedores

@@ -27,7 +27,7 @@ public class CustomerController {
 
 	@GetMapping("/customers")
 	public List<Customer> getCustomers() {
-		return customerService.getCustomers();
+		return customerService.getList();
 	}
 
 	@GetMapping("/customers/{id}")

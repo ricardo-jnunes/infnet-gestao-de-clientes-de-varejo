@@ -8,24 +8,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Service;
 
-import infnet.customer.management.api.exceptions.InvalidCustomerException;
-import infnet.customer.management.api.exceptions.NotFoundCustomerException;
+import infnet.customer.management.api.exceptions.InvalidCashierException;
+import infnet.customer.management.api.exceptions.NotFoundCashierException;
 import infnet.customer.management.api.interfaces.CRUDService;
-import infnet.customer.management.api.model.domain.Customer;
+import infnet.customer.management.api.model.domain.Cashier;
 
 /**
  * 
  */
 @Service
-public class CustomerService implements CRUDService<Customer, Integer> {
+public class CashierService implements CRUDService<Cashier, Integer> {
 
-	private final Map<Integer, Customer> map = new ConcurrentHashMap<>();
+	private final Map<Integer, Cashier> map = new ConcurrentHashMap<>();
 	private final AtomicInteger nextId = new AtomicInteger(1);
 
-	private void validateCustomer(Customer entity) {
+	private void validateCashier(Cashier entity) {
 		// R1 - Nome não pode estar vazio
 		if (entity == null || entity.getName().isBlank()) {
-			throw new InvalidCustomerException("Name cannot be empty.");
+			throw new InvalidCashierException("Name cannot be empty.");
 		}
 	}
 
@@ -37,7 +37,7 @@ public class CustomerService implements CRUDService<Customer, Integer> {
 	}
 
 	@Override
-	public Customer register(Customer entity) {
+	public Cashier register(Cashier entity) {
 		entity.setId(nextId.getAndIncrement());
 
 		// TODO Buscar endereco a partir do CEP (VIA CEP)
@@ -45,35 +45,35 @@ public class CustomerService implements CRUDService<Customer, Integer> {
 		// R1 - Nome não pode estar vazio
 		// R2 - Ao passar um id - o valor é ignorado e o Atomic Integer resolve
 		// normalmente o próximo id
-		validateCustomer(entity);
+		validateCashier(entity);
 
 		map.put(entity.getId(), entity);
 		return entity;
 	}
 
 	@Override
-	public Customer getById(Integer id) {
+	public Cashier getById(Integer id) {
 		validateParameterId(id);
 
-		Customer customer = map.get(id);
-		if (customer == null) {
-			throw new NotFoundCustomerException("Customer not found.");
+		Cashier cashier = map.get(id);
+		if (cashier == null) {
+			throw new NotFoundCashierException("Cahier not found.");
 		}
-		return customer;
+		return cashier;
 	}
 
 	@Override
-	public List<Customer> getList() {
-		return new ArrayList<Customer>(map.values());
+	public List<Cashier> getList() {
+		return new ArrayList<Cashier>(map.values());
 	}
 
 	@Override
-	public Customer edit(Integer id, Customer entity) {
-		validateCustomer(entity);
+	public Cashier edit(Integer id, Cashier entity) {
+		validateCashier(entity);
 		validateParameterId(id);
 		
 		entity.setId(id);
-
+		
 		map.put(entity.getId(), entity);
 		return entity;
 	}
@@ -84,15 +84,15 @@ public class CustomerService implements CRUDService<Customer, Integer> {
 		map.remove(id);
 	}
 
-	public Customer setInactive(Integer id) {
-		// R1 - Se o cliente está ativo, então desativar
+	public Cashier setInactive(Integer id) {
+		// R1 - Se o vendedor está ativo, então desativar
 		// Senão não fazer nada
-		Customer customer = getById(id);
-		if (customer.isActive()) {
-			customer.setActive(false);
+		Cashier cashier = getById(id);
+		if (cashier.isActive()) {
+			cashier.setActive(false);
 		}
 
-		return customer;
+		return cashier;
 
 	}
 
