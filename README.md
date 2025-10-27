@@ -39,9 +39,6 @@ Acesse o http://localhost:8080/h2-console
 - Feature 2
    - Classes abstratas e herança
    - Incrementar atributos das classes de domínios
-   - Implementar relacionamentos (OneToMany, ManyToMany, ManyToOne, OneToOne)
-   - Tratamento de Exceções
-   	- Exceções customizadas
    - Criação de todos os endpoints CRUD e inativar cliente
    - CRUD para os vendedores
    
@@ -50,8 +47,11 @@ Acesse o http://localhost:8080/h2-console
    - Habilitando Feign Client para serviços externos
    - Validação de dados de entrada com anotações
    - Uso de Response Entity para tratar componentenes de resposta ao cliente
+   - Tratamento de Exceções
    
 - Feature 4
-   - Centralização de erros e exceções com @ControllerAdvice
+   - Centralização de erros e tratamento de exceções com @ControllerAdvice
    - Criação de relacionamentos entre clientes e endereços
+   	- Implementar relacionamentos (OneToMany, ManyToMany, ManyToOne, OneToOne)
+      
 
