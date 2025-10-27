@@ -1,8 +1,18 @@
 package infnet.customer.management.api.model.domain;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
+
+@MappedSuperclass
 public abstract class Person {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@NotNull(message = "O nome é obrigatório.")
 	private String name;
 	private String document;
 	private Type type;

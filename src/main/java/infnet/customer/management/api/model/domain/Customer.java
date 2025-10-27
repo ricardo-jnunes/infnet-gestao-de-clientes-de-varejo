@@ -1,10 +1,20 @@
 package infnet.customer.management.api.model.domain;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.Valid;
+
+@Entity
 public class Customer extends Person {
 
 	private String email;
 	private String phone;
 	private Boolean active;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	@Valid
 	private Address address;
 
 	public String getEmail() {

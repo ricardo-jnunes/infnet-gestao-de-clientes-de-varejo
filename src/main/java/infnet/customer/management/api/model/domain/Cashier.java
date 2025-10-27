@@ -1,11 +1,17 @@
 package infnet.customer.management.api.model.domain;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class Cashier extends Person {
 
+	@NotNull(message = "A matrícula é obrigatória.")
 	private String registry;
 	private String email;
 	private String phone;
 	private Boolean active;
+	@NotNull(message = "O salário é obrigatório.")
+	@Min(value = 0, message = "O salário não pode ser negativo e maior que R$ 0,00.")
 	private Double salary;
 
 	public String getRegistry() {
