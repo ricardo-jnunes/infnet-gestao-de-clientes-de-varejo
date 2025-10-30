@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import infnet.customer.management.api.model.domain.Customer;
+import infnet.customer.management.api.model.domain.Person;
 import infnet.customer.management.api.model.domain.service.CustomerService;
 import jakarta.validation.Valid;
 
@@ -29,7 +31,19 @@ public class CustomerController {
 	}
 
 	@GetMapping("/customers")
-	public ResponseEntity<List<Customer>> getCustomers() {
+	public ResponseEntity<?> getCustomers(@RequestParam(required = false) String document,
+			@RequestParam(required = false) String type) {
+
+		if (document != null && !document.trim().isEmpty()) {
+			Customer customer = customerService.findByDocument(document);
+			return ResponseEntity.ok(customer);
+		}
+
+		if (type != null && !type.trim().isEmpty()) {
+			List<Customer> customer = customerService.findByTypeOrderByIdAsc(Person.Type.valueOf(type));
+			return ResponseEntity.ok(customer);
+		}
+
 		List<Customer> list = customerService.getList();
 		if (list.isEmpty()) {
 			return ResponseEntity.noContent().build();
@@ -41,6 +55,16 @@ public class CustomerController {
 	public ResponseEntity<Customer> getById(@PathVariable Integer id) {
 		Customer customerById = customerService.getById(id);
 		return ResponseEntity.ok(customerById);
+	}
+
+	@GetMapping("/customers/actives/{isActive}")
+	public ResponseEntity<List<Customer>> getByActive(@PathVariable Boolean isActive) {
+		List<Customer> customers = customerService.findByActive(isActive);
+
+		if (customers.isEmpty()) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok(customers);
 	}
 
 	@PostMapping("/customers")

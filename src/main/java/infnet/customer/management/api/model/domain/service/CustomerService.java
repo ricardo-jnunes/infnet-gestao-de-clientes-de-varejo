@@ -8,6 +8,7 @@ import infnet.customer.management.api.exceptions.InvalidCustomerException;
 import infnet.customer.management.api.exceptions.NotFoundCustomerException;
 import infnet.customer.management.api.interfaces.CRUDService;
 import infnet.customer.management.api.model.domain.Customer;
+import infnet.customer.management.api.model.domain.Person;
 import infnet.customer.management.api.model.repository.CustomerRepository;
 
 /**
@@ -25,7 +26,7 @@ public class CustomerService implements CRUDService<Customer, Integer> {
 	private void validateCustomer(Customer entity) {
 		// R1 - Nome não pode estar vazio
 		if (entity == null) {
-			 throw new InvalidCustomerException("Informações do cliente inválido.");
+			throw new InvalidCustomerException("Informações do cliente inválido.");
 		}
 	}
 
@@ -53,7 +54,15 @@ public class CustomerService implements CRUDService<Customer, Integer> {
 
 		return customerRepository.findById(id)
 				.orElseThrow(() -> new NotFoundCustomerException("O vendedor com o ID [" + id + "] não encontrado!"));
+	}
 
+	public Customer findByDocument(String document) {
+		if (document == null || document.trim().isEmpty()) {
+			throw new IllegalArgumentException("O CPF utilizado na busca do vendedor não pode ser nulo ou vazio.");
+		}
+
+		return customerRepository.findByDocument(document).orElseThrow(
+				() -> new NotFoundCustomerException("O cliente de documento [" + document + "] não foi encontrado!"));
 	}
 
 	@Override
@@ -87,6 +96,14 @@ public class CustomerService implements CRUDService<Customer, Integer> {
 
 		return customerRepository.save(customerById);
 
+	}
+
+	public List<Customer> findByActive(Boolean isActive) {
+		return customerRepository.findByActive(isActive);
+	}
+
+	public List<Customer> findByTypeOrderByIdAsc(Person.Type type) {
+		return customerRepository.findByTypeOrderByIdAsc(type);
 	}
 
 }

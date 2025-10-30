@@ -11,8 +11,10 @@ Permite realizar o gerenciamento de clientes de lojas de varejo através de APIs
 
 
 #### Usando as APIs
-Acesse o http://localhost:8080/swagger-ui/index.html
-
+- Acesse o http://localhost:8080/swagger-ui/index.html
+- Informe usuário e senha
+	- Usuário: admin
+	- Senha: adminPass
 E execute as collections desejadas.
 
 #### Acessando o Banco de Dados embarcado
@@ -46,12 +48,18 @@ Acesse o http://localhost:8080/h2-console
    - Camada de persistência com Spring Data JPA
    - Habilitando Feign Client para serviços externos
    - Validação de dados de entrada com anotações
-   - Uso de Response Entity para tratar componentenes de resposta ao cliente
+   - Uso de Response Entity para tratar componentes de resposta ao cliente
    - Tratamento de Exceções
    
 - Feature 4
    - Centralização de erros e tratamento de exceções com @ControllerAdvice
    - Criação de relacionamentos entre clientes e endereços
    	- Implementar relacionamentos (OneToMany, ManyToMany, ManyToOne, OneToOne)
+   	- Consulta complexas
+   		- Busca por CPF ou CNPJ dos clients
+   		- Busca por clientes ativos
+   		- Busca por tipos de clientes ordenando por Id
+   	- Segurança
+   		- Spring Security
       
 
