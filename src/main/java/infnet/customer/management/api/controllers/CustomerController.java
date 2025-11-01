@@ -1,6 +1,7 @@
 package infnet.customer.management.api.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import infnet.customer.management.api.model.domain.Customer;
 import infnet.customer.management.api.model.domain.Person;
 import infnet.customer.management.api.model.domain.service.CustomerService;
+import infnet.customer.management.api.model.dtos.CustomerDTO;
+import infnet.customer.management.api.model.dtos.CustomerMapper;
 import jakarta.validation.Valid;
 
 @RestController
@@ -36,30 +39,37 @@ public class CustomerController {
 
 		if (document != null && !document.trim().isEmpty()) {
 			Customer customer = customerService.findByDocument(document);
-			return ResponseEntity.ok(customer);
+			CustomerDTO customerDTO = CustomerMapper.toDTO(customer);
+
+			return ResponseEntity.ok(customerDTO);
 		}
 
 		if (type != null && !type.trim().isEmpty()) {
-			List<Customer> customer = customerService.findByTypeOrderByIdAsc(Person.Type.valueOf(type));
-			return ResponseEntity.ok(customer);
+			List<CustomerDTO> customers = customerService.findByTypeOrderByIdAsc(Person.Type.valueOf(type)).stream()
+					.map(CustomerMapper::toDTO).collect(Collectors.toList());
+
+			return ResponseEntity.ok(customers);
 		}
 
-		List<Customer> list = customerService.getList();
-		if (list.isEmpty()) {
+		List<CustomerDTO> customers = customerService.getList().stream().map(CustomerMapper::toDTO)
+				.collect(Collectors.toList());
+		if (customers.isEmpty()) {
 			return ResponseEntity.noContent().build();
 		}
-		return ResponseEntity.ok(list);
+		return ResponseEntity.ok(customers);
 	}
 
 	@GetMapping("/customers/{id}")
-	public ResponseEntity<Customer> getById(@PathVariable Integer id) {
-		Customer customerById = customerService.getById(id);
-		return ResponseEntity.ok(customerById);
+	public ResponseEntity<CustomerDTO> getById(@PathVariable Integer id) {
+		Customer customer = customerService.getById(id);
+		CustomerDTO customerDTO = CustomerMapper.toDTO(customer);
+		return ResponseEntity.ok(customerDTO);
 	}
 
 	@GetMapping("/customers/actives/{isActive}")
-	public ResponseEntity<List<Customer>> getByActive(@PathVariable Boolean isActive) {
-		List<Customer> customers = customerService.findByActive(isActive);
+	public ResponseEntity<List<CustomerDTO>> getByActive(@PathVariable Boolean isActive) {
+		List<CustomerDTO> customers = customerService.findByActive(isActive).stream().map(CustomerMapper::toDTO)
+				.collect(Collectors.toList());
 
 		if (customers.isEmpty()) {
 			return ResponseEntity.noContent().build();
@@ -68,15 +78,17 @@ public class CustomerController {
 	}
 
 	@PostMapping("/customers")
-	public ResponseEntity<Customer> register(@Valid @RequestBody Customer customer) {
+	public ResponseEntity<CustomerDTO> register(@Valid @RequestBody CustomerDTO customerDTO) {
+		Customer customer = CustomerMapper.toEntity(customerDTO);
 		Customer registered = customerService.register(customer);
-		return ResponseEntity.status(HttpStatus.CREATED).body(registered);
+		return ResponseEntity.status(HttpStatus.CREATED).body(CustomerMapper.toDTO(registered));
 	}
 
 	@PutMapping("/customers/{id}")
-	public ResponseEntity<Customer> edit(@PathVariable Integer id, @RequestBody Customer customer) {
+	public ResponseEntity<CustomerDTO> edit(@PathVariable Integer id, @RequestBody CustomerDTO customerDTO) {
+		Customer customer = CustomerMapper.toEntity(customerDTO);
 		Customer edited = customerService.edit(id, customer);
-		return ResponseEntity.ok(edited);
+		return ResponseEntity.ok(CustomerMapper.toDTO(edited));
 	}
 
 	@DeleteMapping("/customers/{id}")
@@ -86,9 +98,10 @@ public class CustomerController {
 	}
 
 	@PatchMapping("/customers/{id}/inactivate")
-	public ResponseEntity<Customer> inactivate(@PathVariable Integer id) {
-		Customer customerInactive = customerService.setInactive(id);
-		return ResponseEntity.ok(customerInactive);
+	public ResponseEntity<CustomerDTO> inactivate(@PathVariable Integer id) {
+		Customer customer = customerService.setInactive(id);
+		CustomerDTO customerDTO = CustomerMapper.toDTO(customer);
+		return ResponseEntity.ok(customerDTO);
 
 	}
 }

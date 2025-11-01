@@ -2,7 +2,9 @@ package infnet.customer.management.api;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -41,9 +43,17 @@ public class CustomerLoader implements ApplicationRunner {
 				customer.setPhone(fields[4]);
 				customer.setType(Customer.Type.valueOf(fields[5]));
 				customer.setActive(Boolean.valueOf(fields[6]));
-				Address address = AddressMapper.fromViaCep(cepFeignClient.findByCep(fields[7]));
 
-				customer.setAddress(address);
+				String addresses = fields[7];
+				String[] splitAddresses = addresses.split(",");
+				List<Address> customerAddresses = new ArrayList<Address>();
+				for (String splitAddress : splitAddresses) {
+					Address address = AddressMapper.fromViaCep(cepFeignClient.findByCep(splitAddress));
+					address.setCustomer(customer);
+					customerAddresses.add(address);
+				}
+
+				customer.setAddresses(customerAddresses);
 				customerService.register(customer);
 				line = reader.readLine();
 			}

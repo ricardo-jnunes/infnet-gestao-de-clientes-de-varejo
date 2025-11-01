@@ -1,9 +1,10 @@
 package infnet.customer.management.api.model.domain;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.Valid;
 
 @Entity
@@ -12,10 +13,10 @@ public class Customer extends Person {
 	private String email;
 	private String phone;
 	private Boolean active;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_id")
+	
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	@Valid
-	private Address address;
+	private List<Address> addresses;
 
 	public String getEmail() {
 		return email;
@@ -41,18 +42,18 @@ public class Customer extends Person {
 		this.active = active;
 	}
 
-	public Address getAddress() {
-		return address;
+	public List<Address> getAddresses() {
+		return addresses;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 
 	@Override
 	public String toString() {
 		return super.toString() + " - Customer [email=" + email + ", phone=" + phone + ", active=" + active
-				+ ", address=" + address + "]\n";
+				+ ", address=" + addresses + "]\n";
 	}
 
 }

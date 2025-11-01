@@ -1,23 +1,26 @@
-package infnet.customer.management.api.model.domain;
+package infnet.customer.management.api.model.dtos;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
 
-@Entity
-public class Address {
+public class AddressDTO {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@NotBlank(message = "O CEP é obrigatório.")
 	private String cep;
+
+	@NotBlank(message = "A rua é obrigatória.")
 	private String street;
+
 	private Integer number;
+
+	@NotBlank(message = "O bairro é obrigatório.")
 	private String neighborhood;
+
+	@NotBlank(message = "O estado é obrigatório.")
 	private String state;
+
+	@NotBlank(message = "O país é obrigatório.")
 	private String country;
 
 	public Integer getId() {
@@ -27,10 +30,6 @@ public class Address {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	@ManyToOne
-	@JoinColumn(name = "customer_id", nullable = false)
-	private Customer customer;
 
 	public String getCep() {
 		return cep;
@@ -78,20 +77,6 @@ public class Address {
 
 	public void setCountry(String country) {
 		this.country = country;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	@Override
-	public String toString() {
-		return "Address [id= " + id + "cep=" + cep + ", street=" + street + ", number=" + number + ", neighborhood="
-				+ neighborhood + ", state=" + state + ", country=" + country + "]";
 	}
 
 }

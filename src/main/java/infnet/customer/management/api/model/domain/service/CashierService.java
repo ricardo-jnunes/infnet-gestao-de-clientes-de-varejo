@@ -40,8 +40,6 @@ public class CashierService implements CRUDService<Cashier, Integer> {
 	public Cashier register(Cashier entity) {
 		entity.setId(nextId.getAndIncrement());
 
-		// TODO Buscar endereco a partir do CEP (VIA CEP)
-
 		// R1 - Nome não pode estar vazio
 		// R2 - Ao passar um id - o valor é ignorado e o Atomic Integer resolve
 		// normalmente o próximo id
